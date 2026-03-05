@@ -71,47 +71,48 @@ Install Tomcat (Application Server)
 Ssh username@appserver_private_ip 
 Check: hostname 
 Bash: 
-sudo apt update 
-sudo apt install openjdk-17-jdk -y 
-java -version 
-cd /opt 
-sudo wget https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.18/bin/apache-tomcat
-11.0.18.tar.gz 
-sudo tar -xvzf apache-tomcat-11.0.18.tar.gz 
-sudo mv apache-tomcat-11.0.18 tomcat 
-ls /opt 
-cd /opt/tomcat/bin 
-sudo ./startup.sh 
-sudo ss -tulnp | grep 8080 
+sudo apt update    |
+sudo apt install openjdk-17-jdk -y    |
+java -version   |
+cd /opt   |
+sudo wget https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.18/bin/apache-tomcat  
+11.0.18.tar.gz   |
+sudo tar -xvzf apache-tomcat-11.0.18.tar.gz   |
+sudo mv apache-tomcat-11.0.18 tomcat   |
+ls /opt   |
+cd /opt/tomcat/bin   |
+sudo ./startup.sh   |
+sudo ss -tulnp | grep 8080   |
 0.0.0.0:8080
 
 Install MySQL (Database Server)
 
-ssh username@dbserver_private_ip 
-Check: hostname 
+ssh username@dbserver_private_ip   |
+Check: hostname   |
 Bash: 
-sudo apt update 
-sudo apt install mysql-server -y 
-sudo systemctl status mysql 
-sudo mysql_secure_installation 
-sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf 
+sudo apt update   |
+sudo apt install mysql-server -y   |
+sudo systemctl status mysql    |
+sudo mysql_secure_installation     |
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf   | 
 Find       
-: bind-address = 127.0.0.1 
-Change To : bind-address = 0.0.0.0 
-sudo systemctl restart mysql 
-sudo mysql -u root -p 
-INSIDE MYSQL: 
-CREATE DATABASE appdb; 
-CREATE USER 'appuser'@'%' IDENTIFIED BY 'password123'; 
-GRANT ALL PRIVILEGES ON appdb.* TO 'appuser'@'%'; 
-FLUSH PRIVILEGES; 
-EXIT; 
-TEST FROM APP SERVER : 
-mysql -h db_private_ip -u appuser -p 
-After installation, tested database connectivity using: 
-telnet 3306
+: bind-address = 127.0.0.1    |
+Change To : bind-address = 0.0.0.0    |
+sudo systemctl restart mysql    |
+sudo mysql -u root -p    |
+INSIDE MYSQL:   |
+CREATE DATABASE appdb;   |
+CREATE USER 'appuser'@'%' IDENTIFIED BY 'password123';   |
+GRANT ALL PRIVILEGES ON appdb.* TO 'appuser'@'%';    |
+FLUSH PRIVILEGES;    |
+EXIT;    |
+TEST FROM APP SERVER :   
 
-Connectivity Testing
+mysql -h db_private_ip -u appuser -p    |
+After installation, tested database connectivity using: 
+telnet 3306  |
+
+Connectivity Testing 
 
 Test communication using Telnet
 telnet <APP-SERVER-IP> 8080
